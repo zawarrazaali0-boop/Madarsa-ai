@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,70 +9,81 @@
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
-    }
-
-    header {
-      background: #173f35;
+      font-family: "Noto Nastaliq Urdu", "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #071a16, #0d3027, #123f32);
       color: white;
-      padding: 25px 18px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-    }
-
-    header p {
-      margin: 8px 0 0;
-      opacity: 0.9;
+      min-height: 100vh;
     }
 
     .container {
-      max-width: 700px;
+      width: 92%;
+      max-width: 850px;
       margin: auto;
-      padding: 20px;
+      padding: 25px 0 50px;
     }
 
-    .search-box {
-      background: white;
-      padding: 18px;
-      border-radius: 15px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 25px 10px;
     }
 
-    textarea {
-      width: 100%;
-      height: 120px;
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+    .logo {
+      width: 75px;
+      height: 75px;
+      margin: auto;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+      margin-top: 15px;
+      font-size: 34px;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      color: #c8ded8;
       font-size: 16px;
-      resize: vertical;
     }
 
-    button {
-      width: 100%;
-      margin-top: 12px;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      background: #173f35;
-      color: white;
-      font-size: 17px;
-      cursor: pointer;
+    /* Welcome card */
+    .welcome {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 22px;
+      padding: 22px;
+      margin-top: 15px;
+      text-align: center;
+      backdrop-filter: blur(10px);
     }
 
-    button:hover {
-      background: #24594c;
+    .welcome h2 {
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #cbded9;
+      line-height: 1.8;
+    }
+
+    /* Subjects */
+    .section-title {
+      margin: 28px 5px 14px;
+      font-size: 21px;
     }
 
     .subjects {
@@ -82,102 +93,289 @@
     }
 
     .subject {
-      background: white;
-      padding: 20px 10px;
-      text-align: center;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.09);
+      color: white;
+      border-radius: 17px;
+      padding: 17px 10px;
+      cursor: pointer;
       font-size: 17px;
+      transition: 0.2s;
     }
 
-    .answer {
-      background: white;
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 12px;
+    .subject:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.17);
+    }
+
+    .subject.active {
+      background: #d6b15d;
+      color: #10231d;
+      font-weight: bold;
+    }
+
+    .subject-icon {
+      display: block;
+      font-size: 27px;
+      margin-bottom: 5px;
+    }
+
+    /* Question area */
+    .question-box {
+      margin-top: 25px;
+      background: rgba(255,255,255,0.10);
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      resize: vertical;
+      border: none;
+      outline: none;
+      border-radius: 15px;
+      padding: 15px;
+      font-size: 17px;
+      font-family: inherit;
+      background: rgba(255,255,255,0.95);
+      color: #14251f;
+      direction: rtl;
+    }
+
+    textarea::placeholder {
+      color: #777;
+    }
+
+    .ask-btn {
+      width: 100%;
+      margin-top: 13px;
+      padding: 15px;
+      border: none;
+      border-radius: 15px;
+      background: #d6b15d;
+      color: #10231d;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    .ask-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Response */
+    .response {
       display: none;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.10);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
     }
 
+    .response h3 {
+      margin-bottom: 10px;
+      color: #e5c879;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      padding: 30px;
-      color: #777;
-      font-size: 14px;
+      margin-top: 35px;
+      color: #9eb8b1;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 29px;
+      }
+
+      .subjects {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .subject {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>📚 Madaris AI</h1>
-    <p>Shia Madaris Knowledge Assistant</p>
-  </header>
-
   <div class="container">
 
-    <div class="search-box">
+    <!-- Header -->
+    <header class="header">
 
-      <textarea
-        id="question"
-        placeholder="Ask your question...&#10;&#10;مثلاً: عامل کی تعریف کیا ہے؟"
-      ></textarea>
+      <div class="logo">📖</div>
 
-      <button onclick="askQuestion()">
-        🤖 Ask Madaris AI
+      <h1>Madaris AI</h1>
+
+      <p class="subtitle">
+        Shia Madaris کے مطالعہ کے لیے ایک جدید AI Assistant
+      </p>
+
+    </header>
+
+
+    <!-- Welcome -->
+    <section class="welcome">
+
+      <h2>السلام علیکم و رحمۃ اللہ</h2>
+
+      <p>
+        اپنے مدرسہ کے مضمون کا انتخاب کریں اور اپنا سوال لکھیں۔
+        Madaris AI آپ کی تعلیم میں مدد کرنے کے لیے بنایا جا رہا ہے۔
+      </p>
+
+    </section>
+
+
+    <!-- Subjects -->
+    <h2 class="section-title">📚 مضمون منتخب کریں</h2>
+
+    <div class="subjects">
+
+      <button class="subject active" onclick="selectSubject(this, 'Awamil')">
+        <span class="subject-icon">📘</span>
+        عوامل
+      </button>
+
+      <button class="subject" onclick="selectSubject(this, 'Sarf')">
+        <span class="subject-icon">📗</span>
+        صرف
+      </button>
+
+      <button class="subject" onclick="selectSubject(this, 'Nahw')">
+        <span class="subject-icon">📕</span>
+        نحو
+      </button>
+
+      <button class="subject" onclick="selectSubject(this, 'Mantiq')">
+        <span class="subject-icon">📙</span>
+        منطق
+      </button>
+
+      <button class="subject" onclick="selectSubject(this, 'Fiqh')">
+        <span class="subject-icon">⚖️</span>
+        فقہ
+      </button>
+
+      <button class="subject" onclick="selectSubject(this, 'Aqaaid')">
+        <span class="subject-icon">🕌</span>
+        عقائد
+      </button>
+
+      <button class="subject" onclick="selectSubject(this, 'Hadith')">
+        <span class="subject-icon">📜</span>
+        حدیث
+      </button>
+
+      <button class="subject" onclick="selectSubject(this, 'Tafsir')">
+        <span class="subject-icon">📖</span>
+        تفسیر
       </button>
 
     </div>
 
-    <h2>📖 Subjects</h2>
 
-    <div class="subjects">
+    <!-- Question -->
+    <section class="question-box">
 
-      <div class="subject">📘 Awamil</div>
-      <div class="subject">📗 Sarf</div>
-      <div class="subject">📙 Nahw</div>
-      <div class="subject">📕 Mantiq</div>
-      <div class="subject">📔 Fiqh</div>
-      <div class="subject">📓 Aqaaid</div>
-      <div class="subject">📜 Hadith</div>
-      <div class="subject">📚 Tafsir</div>
+      <h2 class="section-title" style="margin-top:0;">
+        💬 اپنا سوال پوچھیں
+      </h2>
 
-    </div>
+      <textarea
+        id="question"
+        placeholder="مثال: عامل کسے کہتے ہیں؟&#10;&#10;اپنا سوال یہاں لکھیں..."
+      ></textarea>
 
-    <div id="answer" class="answer"></div>
+      <button class="ask-btn" onclick="askQuestion()">
+        ✨ Madaris AI سے پوچھیں
+      </button>
+
+    </section>
+
+
+    <!-- Temporary response -->
+    <section class="response" id="response">
+
+      <h3>آپ کا سوال</h3>
+
+      <p id="questionText"></p>
+
+      <br>
+
+      <p>
+        🤖 AI جواب دینے کا نظام ابھی تیار کیا جا رہا ہے۔
+        اگلے مرحلے میں Gemini AI کو محفوظ طریقے سے یہاں connect کیا جائے گا۔
+      </p>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+      Madaris AI<br>
+      علم، تحقیق اور تعلیم کے لیے
+      <br><br>
+      ⚠️ یہ AI تعلیمی معاون ہے؛ دینی مسائل میں مستند عالم سے رجوع کریں۔
+    </footer>
 
   </div>
 
-  <footer>
-    Madaris AI • Educational Project
-  </footer>
 
   <script>
+
+    let selectedSubject = "Awamil";
+
+
+    function selectSubject(button, subject) {
+
+      document.querySelectorAll(".subject").forEach(function(btn) {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      selectedSubject = subject;
+
+    }
+
 
     function askQuestion() {
 
       const question =
         document.getElementById("question").value.trim();
 
-      const answer =
-        document.getElementById("answer");
-
       if (!question) {
-        alert("Please enter a question.");
+
+        alert("براہ کرم اپنا سوال لکھیں۔");
+
         return;
       }
 
-      answer.style.display = "block";
 
-      answer.innerHTML =
-        "<h3>🤖 Madaris AI</h3>" +
-        "<p>Your question has been received:</p>" +
-        "<p><strong>" + question + "</strong></p>" +
-        "<p>Gemini AI connection will be added in the next step.</p>";
+      document.getElementById("response").style.display = "block";
+
+      document.getElementById("questionText").innerHTML =
+        "<strong>مضمون:</strong> " +
+        selectedSubject +
+        "<br><br>" +
+        "<strong>سوال:</strong> " +
+        question;
 
     }
 
   </script>
 
 </body>
-  </html>
+</html>
